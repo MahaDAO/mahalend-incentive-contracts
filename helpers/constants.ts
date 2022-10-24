@@ -52,8 +52,8 @@ export const getAaveTokenPerNetwork = (network: eEthereumNetwork): tEthereumAddr
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
       [eEthereumNetwork.hardhat]: ZERO_ADDRESS,
       [eEthereumNetwork.kovan]: '0xe4483afcf0d612c011679C76B61F5b0d27bAF93C',
-      [eEthereumNetwork.ropsten]: '0x74dA004A1B81b4d0C79F5820f9FF22647cb1dD95',
-      [eEthereumNetwork.main]: '0x9c0435779F5E52CEC404D957C9bAa6f7d674C8bA',
+      [eEthereumNetwork.goerli]: '0x2c88e8ff47a2ad8692302631112fce46cf09e75b',
+      [eEthereumNetwork.main]: '0xb4d930279552397bba2ee473229f89ec245bc365',
     },
     network
   );
@@ -64,7 +64,7 @@ export const getCooldownSecondsPerNetwork = (network: eEthereumNetwork): tEthere
       [eEthereumNetwork.coverage]: COOLDOWN_SECONDS,
       [eEthereumNetwork.hardhat]: COOLDOWN_SECONDS,
       [eEthereumNetwork.kovan]: '21600', // 8h
-      [eEthereumNetwork.ropsten]: '180', // 3m
+      [eEthereumNetwork.goerli]: '180', // 3m
       [eEthereumNetwork.main]: '864000', // 10d
     },
     network
@@ -76,7 +76,7 @@ export const getUnstakeWindowPerNetwork = (network: eEthereumNetwork): tEthereum
       [eEthereumNetwork.coverage]: UNSTAKE_WINDOW,
       [eEthereumNetwork.hardhat]: UNSTAKE_WINDOW,
       [eEthereumNetwork.kovan]: '10800', // 4h
-      [eEthereumNetwork.ropsten]: '240', // 4m
+      [eEthereumNetwork.goerli]: '240', // 4m
       [eEthereumNetwork.main]: '172800', // 2d
     },
     network
@@ -87,9 +87,9 @@ export const getAaveAdminPerNetwork = (network: eEthereumNetwork): tEthereumAddr
     {
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
       [eEthereumNetwork.hardhat]: ZERO_ADDRESS,
-      [eEthereumNetwork.kovan]: '0x8134929c3dcb1b8b82f27f53424b959fb82182f2', // Aave Governance
-      [eEthereumNetwork.ropsten]: '0xEd93e49A2d75beA505fD4D1A0Dff745f69F2E997', // Aave Governance
-      [eEthereumNetwork.main]: '0x8a2Efd9A790199F4c94c6effE210fce0B4724f52', // Aave Governance
+      [eEthereumNetwork.kovan]: '0xecce08c2636820a81fc0c805dbdc7d846636bbc4', // Aave Governance
+      [eEthereumNetwork.goerli]: '0xecce08c2636820a81fc0c805dbdc7d846636bbc4', // Aave Governance
+      [eEthereumNetwork.main]: '0x6357EDbfE5aDA570005ceB8FAd3139eF5A8863CC', // Aave Governance
     },
     network
   );
@@ -100,7 +100,7 @@ export const getDistributionDurationPerNetwork = (network: eEthereumNetwork): tE
       [eEthereumNetwork.coverage]: DISTRIBUTION_DURATION,
       [eEthereumNetwork.hardhat]: DISTRIBUTION_DURATION,
       [eEthereumNetwork.kovan]: '864000',
-      [eEthereumNetwork.ropsten]: '864000',
+      [eEthereumNetwork.goerli]: '864000',
       [eEthereumNetwork.main]: '12960000', // 5 months (30 days) in seconds
     },
     network
@@ -112,7 +112,7 @@ export const getAaveIncentivesVaultPerNetwork = (network: eEthereumNetwork): tEt
       [eEthereumNetwork.coverage]: '',
       [eEthereumNetwork.hardhat]: '',
       [eEthereumNetwork.kovan]: '',
-      [eEthereumNetwork.ropsten]: '',
+      [eEthereumNetwork.goerli]: '',
       [eEthereumNetwork.main]: '0x253f7b06c1d60c1fbbc9d82c301327eb86e3ba81',
     },
     network

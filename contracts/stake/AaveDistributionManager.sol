@@ -3,6 +3,7 @@ pragma solidity 0.7.5;
 pragma experimental ABIEncoderV2;
 
 import {SafeMath} from '../lib/SafeMath.sol';
+import {Ownable} from '../lib/Ownable.sol';
 import {DistributionTypes} from '../lib/DistributionTypes.sol';
 import {IAaveDistributionManager} from '../interfaces/IAaveDistributionManager.sol';
 
@@ -11,7 +12,7 @@ import {IAaveDistributionManager} from '../interfaces/IAaveDistributionManager.s
  * @notice Accounting contract to manage multiple staking distributions
  * @author Aave
  **/
-contract AaveDistributionManager is IAaveDistributionManager {
+contract AaveDistributionManager is Ownable, IAaveDistributionManager {
   using SafeMath for uint256;
 
   struct AssetData {
@@ -22,9 +23,6 @@ contract AaveDistributionManager is IAaveDistributionManager {
   }
 
   uint256 public immutable DISTRIBUTION_END;
-
-  address public immutable EMISSION_MANAGER;
-
   uint8 public constant PRECISION = 18;
 
   mapping(address => AssetData) public assets;
@@ -35,7 +33,7 @@ contract AaveDistributionManager is IAaveDistributionManager {
 
   constructor(address emissionManager, uint256 distributionDuration) public {
     DISTRIBUTION_END = block.timestamp.add(distributionDuration);
-    EMISSION_MANAGER = emissionManager;
+    _transferOwnership(emissionManager);
   }
 
   /**
@@ -45,9 +43,8 @@ contract AaveDistributionManager is IAaveDistributionManager {
   function configureAssets(DistributionTypes.AssetConfigInput[] calldata assetsConfigInput)
     external
     override
+    onlyOwner
   {
-    require(msg.sender == EMISSION_MANAGER, 'ONLY_EMISSION_MANAGER');
-
     for (uint256 i = 0; i < assetsConfigInput.length; i++) {
       AssetData storage assetConfig = assets[assetsConfigInput[i].underlyingAsset];
 

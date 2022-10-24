@@ -1,4 +1,6 @@
 import { eEthereumNetwork } from './helpers/types';
+require('dotenv').config();
+
 // @ts-ignore
 import { accounts } from './test-wallets';
 import path from 'path';
@@ -14,7 +16,7 @@ import '@tenderly/hardhat-tenderly';
 export const BUIDLEREVM_CHAIN_ID = 31337;
 
 const DEFAULT_BLOCK_GAS_LIMIT = 12500000;
-const DEFAULT_GAS_PRICE = 102 * 1000 * 1000 * 1000;
+const DEFAULT_GAS_PRICE = 5000000000;
 const HARDFORK = 'istanbul';
 const INFURA_KEY = process.env.INFURA_KEY || '';
 const ETHERSCAN_KEY = process.env.ETHERSCAN_KEY || '';
@@ -27,7 +29,7 @@ const FORKING_BLOCK = parseInt(process.env.FORKING_BLOCK || '12369243');
 
 // Prevent to load scripts before compilation and typechain
 if (!SKIP_LOAD) {
-  ['misc', 'migrations', 'deployments', 'proposals'].forEach((folder) => {
+  ['misc', 'migrations', 'deployments'].forEach((folder) => {
     const tasksPath = path.join(__dirname, 'tasks', folder);
     fs.readdirSync(tasksPath)
       .filter((pth) => pth.includes('.ts'))
@@ -49,6 +51,13 @@ const mainnetFork = MAINNET_FORK
   : undefined;
 
 const getCommonNetworkConfig = (networkName: eEthereumNetwork, networkId: number) => {
+  console.log(
+    ALCHEMY_KEY
+      ? `https://eth-${
+          networkName === 'main' ? 'mainnet' : networkName
+        }.alchemyapi.io/v2/${ALCHEMY_KEY}`
+      : `https://${networkName}.infura.io/v3/${INFURA_KEY}`
+  );
   return {
     url: ALCHEMY_KEY
       ? `https://eth-${
@@ -105,7 +114,7 @@ const config: HardhatUserConfig = {
   networks: {
     tenderly: getCommonNetworkConfig(eEthereumNetwork.tenderly, 3030),
     kovan: getCommonNetworkConfig(eEthereumNetwork.kovan, 42),
-    ropsten: getCommonNetworkConfig(eEthereumNetwork.ropsten, 3),
+    goerli: getCommonNetworkConfig(eEthereumNetwork.goerli, 5),
     main: getCommonNetworkConfig(eEthereumNetwork.main, 1),
     hardhat: {
       hardfork: 'istanbul',
