@@ -7,6 +7,7 @@ export enum eEthereumNetwork {
   ropsten = 'ropsten',
   main = 'main',
   tenderly = 'tenderly',
+  matic = 'matic',
 }
 
 export enum eContractid {
@@ -47,4 +48,5 @@ export interface iParamsPerNetwork<T> {
   [eEthereumNetwork.kovan]: T;
   [eEthereumNetwork.ropsten]: T;
   [eEthereumNetwork.main]: T;
+  [eEthereumNetwork.matic]: T;
 }

@@ -299,25 +299,11 @@ export const deployStakedTokenV3 = async (
 };
 
 export const deployAaveIncentivesController = async (
-  [rewardToken, rewardsVault, aavePsm, extraPsmReward, emissionManager, distributionDuration]: [
-    tEthereumAddress,
-    tEthereumAddress,
-    tEthereumAddress,
-    string,
-    tEthereumAddress,
-    string
-  ],
+  [rewardToken, emissionManager]: [tEthereumAddress, tEthereumAddress],
   verify?: boolean
 ) => {
   const id = eContractid.AaveIncentivesController;
-  const args: string[] = [
-    rewardToken,
-    rewardsVault,
-    aavePsm,
-    extraPsmReward,
-    emissionManager,
-    distributionDuration,
-  ];
+  const args: string[] = [rewardToken, emissionManager];
   const instance = await deployContract<AaveIncentivesController>(id, args);
   await instance.deployTransaction.wait();
   if (verify) {
@@ -381,7 +367,9 @@ export const getStakedAaveImpl = async (address?: tEthereumAddress) => {
   return await getContract<StakedAave>(
     eContractid.StakedAave,
     address ||
-      (await getDb().get(`${eContractid.StakedAaveImpl}.${DRE.network.name}`).value()).address
+      (
+        await getDb().get(`${eContractid.StakedAaveImpl}.${DRE.network.name}`).value()
+      ).address
   );
 };
 
@@ -389,14 +377,18 @@ export const getStakedTokenV2 = async (address?: tEthereumAddress) => {
   return await getContract<StakedTokenV2>(
     eContractid.StakedTokenV2,
     address ||
-      (await getDb().get(`${eContractid.StakedTokenV2}.${DRE.network.name}`).value()).address
+      (
+        await getDb().get(`${eContractid.StakedTokenV2}.${DRE.network.name}`).value()
+      ).address
   );
 };
 export const getStakedTokenV3 = async (address?: tEthereumAddress) => {
   return await getContract<StakedTokenV3>(
     eContractid.StakedTokenV2,
     address ||
-      (await getDb().get(`${eContractid.StakedTokenV2}.${DRE.network.name}`).value()).address
+      (
+        await getDb().get(`${eContractid.StakedTokenV2}.${DRE.network.name}`).value()
+      ).address
   );
 };
 
